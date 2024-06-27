@@ -4,32 +4,64 @@ from selenium.webdriver.common.by import By # Possibilita navegar pela página
 from time import sleep
 
 def load_xlsx_file(file):
-    #Load file XLSX
-    return openpyxl.load_workbook(file)
-
-def load_xlsx_sheet(file, sheet):
     """
     Load an XLSX file and return the specified worksheet.
 
     Args:
         file (str): The path to the XLSX file.
-        sheet (str): The name of the sheet to be loaded.
 
     Returns:
         openpyxl.worksheet.worksheet.Worksheet: The loaded worksheet.
     """
-    
+    #Load file XLSX
+    return openpyxl.load_workbook(file)
+
+def load_xlsx_sheet(file, sheet):
+    """
+    Load the specified Excel (xlsx) sheet.
+
+    Args:
+        file (openpyxl.Workbook): The Excel file.
+        sheet (str): The name of the sheet to load.
+
+    Returns:
+        openpyxl.worksheet.worksheet.Worksheet: The loaded sheet.
+    """
     #Load the sheet that contains the information
     sheet_loaded = file[sheet]
     return sheet_loaded
 
 def load_browser_firefox():
-    return webdriver.Firefox() #Chama o naegador Firefox
+    """
+    Initialize and return a Firefox WebDriver instance.
+
+    Returns:
+        selenium.webdriver.firefox.webdriver.WebDriver: The Firefox WebDriver.
+    """
+    return webdriver.Firefox()
 
 def load_website(driver,site):
+    """
+    Load the specified website using the given WebDriver instance.
+
+    Args:
+        driver (selenium.webdriver): The WebDriver instance.
+        site (str): The URL of the website to load.
+    """
     driver.get(site) #Load website
 
 def input_field_search(driver,input_xpath,value_search):
+    """
+    Fills in an input field on a loaded web page using the specified XPath.
+
+    Args:
+        driver (WebDriver): The Selenium WebDriver instance.
+        input_xpath (str): The XPath of the input field.
+        value_search (str): The value to be entered into the input field.
+
+    Returns:
+        None
+    """
     search_field = driver.find_element(By.XPATH,input_xpath) #Procura na tela carregada pelo elemento através da técnica XPATH
     sleep(1)
     search_field.clear() #Apaga as informações existentes no campo
@@ -37,12 +69,32 @@ def input_field_search(driver,input_xpath,value_search):
     sleep(1)
 
 def click_buton_search(driver,input_xpath):
+    """
+    Clicks a button on a loaded web page using the specified XPath.
+
+    Args:
+        driver (WebDriver): The Selenium WebDriver instance.
+        input_xpath (str): The XPath of the button to be clicked.
+
+    Returns:
+        None
+    """
     buton_search = driver.find_element(By.XPATH,input_xpath)
     sleep(1)
     buton_search.click()
     sleep(4)
 
 def recover_data(driver,input_xpath):
+    """
+    Retrieves the text content from an element on a loaded web page using the specified XPath.
+
+    Args:
+        driver (WebDriver): The Selenium WebDriver instance.
+        input_xpath (str): The XPath of the element to retrieve data from.
+
+    Returns:
+        str: The text content of the specified element.
+    """
     data = driver.find_element(By.XPATH,input_xpath)
     return data.text
 
